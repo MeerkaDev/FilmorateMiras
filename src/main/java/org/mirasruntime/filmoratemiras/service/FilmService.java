@@ -46,7 +46,7 @@ public class FilmService {
     public void addLike(Long filmId, Long userId) {
         log.info("Добавление лайка Service");
 
-        User user = userStorage.findById(userId).orElseThrow(() ->
+        userStorage.findById(userId).orElseThrow(() ->
                 new UserNotFoundException(String.format("Пользователь с id = %d не найден", userId))
         );
 
@@ -61,7 +61,7 @@ public class FilmService {
     public void removeLike(Long filmId, Long userId) {
         log.info("Удаление лайка Service");
 
-        User user = userStorage.findById(userId).orElseThrow(() ->
+        userStorage.findById(userId).orElseThrow(() ->
                 new UserNotFoundException(String.format("Пользователь с id = %d не найден", userId))
         );
 

@@ -3,13 +3,13 @@ package org.mirasruntime.filmoratemiras.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mirasruntime.filmoratemiras.exception.FilmNotFoundException;
 import org.mirasruntime.filmoratemiras.model.Film;
 import org.mirasruntime.filmoratemiras.service.FilmService;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+
 
 @Slf4j
 @RequiredArgsConstructor
