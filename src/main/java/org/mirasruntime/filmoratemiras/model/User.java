@@ -2,32 +2,28 @@ package org.mirasruntime.filmoratemiras.model;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
 
-    @EqualsAndHashCode.Include
-    private int id;
-    
-    @NotBlank(message = "Email is necessary.")
-    @Email(message = "Incorrect email format.")
+    private Long id;
+
+    @NotBlank(message = "Электронная почта не может быть пустой и должна содержать символ @")
+    @Email(message = "Электронная почта не может быть пустой и должна содержать символ @")
     private String email;
 
-    @NotBlank(message = "Login is necessary.")
-    @Pattern(regexp = "\\S+", message = "Login can't contain space-symbol.")
+    @NotEmpty(message = "Логин не может быть пустым и содержать пробелы")
+    @Pattern(regexp = "\\S+", message = "Логин не может быть пустым и содержать пробелы")
     private String login;
 
     private String name;
 
-    @NotNull(message = "Birthday is necessary.")
-    @PastOrPresent(message = "Birthday can't be future date.")
+    @PastOrPresent(message = "Дата рождения не может быть в будущем")
     private LocalDate birthday;
 
-    public String getName() {
-        return name == null || name.isBlank() ? login : name;
-    }
+    private Set<Long> friends = new HashSet<>();
 }

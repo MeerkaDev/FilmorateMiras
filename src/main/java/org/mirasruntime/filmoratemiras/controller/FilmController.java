@@ -1,62 +1,57 @@
 package org.mirasruntime.filmoratemiras.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mirasruntime.filmoratemiras.exception.NotFoundException;
-import org.mirasruntime.filmoratemiras.exception.ValidationException;
+import org.mirasruntime.filmoratemiras.exception.FilmNotFoundException;
 import org.mirasruntime.filmoratemiras.model.Film;
+import org.mirasruntime.filmoratemiras.service.FilmService;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/films")
 public class FilmController {
-
-    private final Set<Film> films = new HashSet<>();
-    private int curId = 1;
+    private final FilmService filmService;
 
     @GetMapping
-    public Set<Film> getAllFilms() {
-        return films;
+    public Collection<Film> findAll() {
+        return filmService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Film findById(@PathVariable Long id) {
+        return filmService.findById(id).get();
     }
 
     @PostMapping
-    public Film addFilm(@Valid @RequestBody Film film) {
-
-        log.info("Получен запрос POST /films.");
-
-        if(film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            log.info("Ошибка валидации в запросе POST /films.");
-            throw new ValidationException("Release date can't be before 28 december 1895.");
-        }
-
-        film.setId(curId);
-        films.add(film);
-        curId++;
-        return film;
+    public Film create(@Valid @RequestBody Film film) {
+        return filmService.create(film);
     }
 
     @PutMapping
-    public Film updateFilm(@Valid @RequestBody Film film) {
+    public Film update(@Valid @RequestBody Film film) {
+        return filmService.update(film);
+    }
 
-        log.info("Получен запрос PUT /films.");
+    @PutMapping("/{id}/like/{userId}")
+    public Film addLike(@PathVariable Long id, @PathVariable Long userId) {
+        filmService.addLike(id,userId);
+        return filmService.findById(id).get();
+    }
 
-        if (!films.contains(film)) {
-            log.info("Ошибка NotFound PUT /films.");
-            throw new NotFoundException("Film is not found.");
-        }
+    @DeleteMapping("/{id}/like/{userId}")
+    public Film removeLike(@PathVariable Long id, @PathVariable Long userId) {
+        filmService.removeLike(id,userId);
+        return filmService.findById(id).get();
+    }
 
-        if(film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            log.info("Ошибка валидации в запросе PUT /films.");
-            throw new ValidationException("Release date can't be before 28 december 1895.");
-        }
-
-        films.remove(film);
-        films.add(film);
-        return film;
+    @GetMapping("/popular")
+    public List<Film> getTopPopularFilms(@RequestParam(defaultValue = "10") Integer count) {
+        return filmService.getTopPopularFilms(count);
     }
 }

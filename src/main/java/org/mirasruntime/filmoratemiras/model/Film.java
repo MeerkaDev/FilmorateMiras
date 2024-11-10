@@ -1,27 +1,30 @@
 package org.mirasruntime.filmoratemiras.model;
 
-import jakarta.validation.constraints.*;
+import org.mirasruntime.filmoratemiras.validation.DateAfterOrEqual;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Film {
+    private Long id;
 
-    @EqualsAndHashCode.Include
-    private int id;
-
-    @NotBlank(message = "Name is necessary.")
+    @NotBlank(message = "Название не может быть пустым")
     private String name;
 
-    @Size(max = 200, message = "Description can't contain more than 200 symbols.")
+    @Size(max = 200, message = "Максимальная длина описания — 200 символов")
     private String description;
 
-    @NotNull(message = "Release date is necessary.")
+    @DateAfterOrEqual(minDate = "1895-12-28", message = "Дата релиза не может быть раньше 28 декабря 1895 года")
     private LocalDate releaseDate;
 
-    @Positive(message = "Film duration must be positive.")
+    @Positive(message = "Продолжительность фильма должна быть положительной")
     private int duration;
+
+    private Set<Long> likes = new HashSet<>();
 }

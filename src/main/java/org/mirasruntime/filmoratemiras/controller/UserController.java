@@ -1,49 +1,70 @@
 package org.mirasruntime.filmoratemiras.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mirasruntime.filmoratemiras.exception.NotFoundException;
+import org.mirasruntime.filmoratemiras.exception.UserNotFoundException;
 import org.mirasruntime.filmoratemiras.model.User;
+import org.mirasruntime.filmoratemiras.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
-
-    private final Set<User> users = new HashSet<>();
-    private int curId = 1;
+    private final UserService userService;
 
     @GetMapping
-    public Set<User> getAllUsers() {
-        return users;
+    public Collection<User> findAll() {
+        return userService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public User findById(@PathVariable Long id) {
+        return userService.findById(id).orElseThrow(() ->
+                new UserNotFoundException(String.format("Пользователь с id = %d не найден", id))
+        );
     }
 
     @PostMapping
-    public User createUser(@Valid @RequestBody User user) {
-
-        log.info("Получен запрос POST /users.");
-
-        user.setId(curId);
-        users.add(user);
-        curId++;
-        return user;
+    public User create(@Valid @RequestBody User user) {
+        return userService.create(user);
     }
 
     @PutMapping
-    public User updateUser(@Valid @RequestBody User user) {
+    public User update(@Valid @RequestBody User user) {
+        return userService.update(user);
+    }
 
-        log.info("Получен запрос PUT /users.");
+    @GetMapping("/{id}/friends")
+    public Collection<User> getFriends(@PathVariable Long id) {
+        User user = userService.findById(id).orElseThrow(() ->
+                new UserNotFoundException(String.format("Пользователь с id = %d не найден", id))
+        );
+        return userService.getFriends(user.getId());
+    }
 
-        if (!users.contains(user)) {
-            log.info("Ошибка NotFound PUT /users.");
-            throw new NotFoundException("User not found.");
-        }
-        users.remove(user);
-        users.add(user);
-        return user;
+    @GetMapping("/{id}/friends/common/{otherId}")
+    public Collection<User> getMutualFriends(@PathVariable Long id, @PathVariable Long otherId) {
+        return userService.getMutualFriends(id, otherId);
+    }
+
+    @PutMapping("/{id}/friends/{friendId}")
+    public User addFriend(@PathVariable Long id, @PathVariable Long friendId) {
+        userService.addFriend(id, friendId);
+        return userService.findById(id).orElseThrow(() ->
+                new UserNotFoundException(String.format("Пользователь с id = %d не найден", id))
+        );
+    }
+
+    @DeleteMapping("/{id}/friends/{friendId}")
+    public User removeFriend(@PathVariable Long id, @PathVariable Long friendId) {
+        userService.removeFriend(id, friendId);
+        return userService.findById(id).orElseThrow(() ->
+                new UserNotFoundException(String.format("Пользователь с id = %d не найден", id))
+        );
     }
 }
