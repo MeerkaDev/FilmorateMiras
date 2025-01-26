@@ -1,6 +1,7 @@
 package org.mirasruntime.filmoratemiras.storage;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mirasruntime.filmoratemiras.dao.UserStorage;
 import org.mirasruntime.filmoratemiras.exception.UserNotFoundException;
 import org.mirasruntime.filmoratemiras.model.User;
 import org.springframework.stereotype.Component;

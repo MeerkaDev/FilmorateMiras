@@ -3,6 +3,7 @@ package org.mirasruntime.filmoratemiras.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mirasruntime.filmoratemiras.exception.UserNotFoundException;
 import org.mirasruntime.filmoratemiras.model.User;
 import org.mirasruntime.filmoratemiras.service.UserService;
 import org.springframework.web.bind.annotation.*;

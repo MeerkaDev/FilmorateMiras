@@ -1,6 +1,7 @@
 package org.mirasruntime.filmoratemiras.storage;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mirasruntime.filmoratemiras.dao.FilmStorage;
 import org.mirasruntime.filmoratemiras.exception.FilmNotFoundException;
 import org.mirasruntime.filmoratemiras.model.Film;
 import org.springframework.stereotype.Component;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mirasruntime.filmoratemiras.exception.UserNotFoundException;
 import org.mirasruntime.filmoratemiras.model.User;
-import org.mirasruntime.filmoratemiras.storage.UserStorage;
+import org.mirasruntime.filmoratemiras.dao.UserStorage;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

@@ -1,4 +1,4 @@
-package org.mirasruntime.filmoratemiras.storage;
+package org.mirasruntime.filmoratemiras.dao;
 
 import org.mirasruntime.filmoratemiras.model.Film;
 
