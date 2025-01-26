@@ -50,15 +50,15 @@ public class FilmDbStorage implements FilmStorage {
         return null;
     }
 
-    private Film mapRow(ResultSet rs, int rowNum) throws SQLException
-    {
-        long id = rs.getLong("id");
-        String name = rs.getString("name");
-        String description = rs.getString("description");
-        LocalDate releaseDate = rs.getDate("release_date").toLocalDate();
-        int duration = rs.getInt("duration");
-
-
-        return new ;
-    }
+//    private Film mapRow(ResultSet rs, int rowNum) throws SQLException
+//    {
+//        long id = rs.getLong("id");
+//        String name = rs.getString("name");
+//        String description = rs.getString("description");
+//        LocalDate releaseDate = rs.getDate("release_date").toLocalDate();
+//        int duration = rs.getInt("duration");
+//
+//
+//        return new ;
+//    }
 }
