@@ -6,7 +6,7 @@ VALUES ('G'),
        ('NC-17');
 
 
-INSERT INTO genre (name)
+INSERT INTO genres (name)
 VALUES ('Action'),
        ('Comedy'),
        ('Drama'),
@@ -31,10 +31,15 @@ VALUES ('Inception', 'A mind-bending thriller', '2010-07-16', 148, 3),
 
 INSERT INTO films_genres (film_id, genre_id)
 VALUES (1, 5),
+       (1, 3),
        (2, 3),
+       (2, 1),
+       (2, 4),
        (3, 2),
        (4, 3),
-       (5, 5);
+       (4, 5),
+       (5, 5),
+       (5, 3);
 
 
 INSERT INTO friends (user_id, friend_id)

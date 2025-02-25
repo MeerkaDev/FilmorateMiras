@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 
-
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -25,12 +24,18 @@ public class FilmController {
 
     @GetMapping("/{id}")
     public Film findById(@PathVariable Long id) {
-        return filmService.findById(id).get();
+        return filmService.findById(id);
     }
 
     @PostMapping
     public Film create(@Valid @RequestBody Film film) {
-        return filmService.create(film);
+        log.info(film.toString());
+
+        Film savedFilm = filmService.create(film);
+
+        log.info(savedFilm.toString());
+
+        return savedFilm;
     }
 
     @PutMapping
@@ -39,15 +44,13 @@ public class FilmController {
     }
 
     @PutMapping("/{id}/like/{userId}")
-    public Film addLike(@PathVariable Long id, @PathVariable Long userId) {
-        filmService.addLike(id,userId);
-        return filmService.findById(id).get();
+    public void addLike(@PathVariable Long id, @PathVariable Long userId) {
+        filmService.addLike(id, userId);
     }
 
     @DeleteMapping("/{id}/like/{userId}")
-    public Film removeLike(@PathVariable Long id, @PathVariable Long userId) {
-        filmService.removeLike(id,userId);
-        return filmService.findById(id).get();
+    public void removeLike(@PathVariable Long id, @PathVariable Long userId) {
+        filmService.removeLike(id, userId);
     }
 
     @GetMapping("/popular")

@@ -1,6 +1,7 @@
 package org.mirasruntime.filmoratemiras.errorHandling;
 
 import lombok.Getter;
+
 @Getter
 public class ErrorResponse {
 

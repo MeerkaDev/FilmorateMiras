@@ -4,7 +4,7 @@ create table if not exists mpa
     name varchar not null
 );
 
-create table if not exists genre
+create table if not exists genres
 (
     id   bigserial primary key,
     name varchar not null

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Component
@@ -60,5 +61,25 @@ public class InMemoryUserStorage implements UserStorage {
         } else {
             throw new UserNotFoundException(String.format("Пользователь с id = %d не найден", user.getId()));
         }
+    }
+
+    @Override
+    public void addFriend(Long userId, Long friendId) {
+
+    }
+
+    @Override
+    public void removeFriend(Long userId, Long friendId) {
+
+    }
+
+    @Override
+    public Set<User> getFriends(User user) {
+        return Set.of();
+    }
+
+    @Override
+    public Set<User> getCommonFriends(User user1, User user2) {
+        return Set.of();
     }
 }

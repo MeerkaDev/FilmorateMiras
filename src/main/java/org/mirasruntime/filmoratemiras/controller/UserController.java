@@ -39,32 +39,23 @@ public class UserController {
         return userService.update(user);
     }
 
-    @GetMapping("/{id}/friends")
-    public Collection<User> getFriends(@PathVariable Long id) {
-        User user = userService.findById(id).orElseThrow(() ->
-                new UserNotFoundException(String.format("Пользователь с id = %d не найден", id))
-        );
-        return userService.getFriends(user.getId());
-    }
-
-    @GetMapping("/{id}/friends/common/{otherId}")
-    public Collection<User> getMutualFriends(@PathVariable Long id, @PathVariable Long otherId) {
-        return userService.getMutualFriends(id, otherId);
-    }
-
     @PutMapping("/{id}/friends/{friendId}")
-    public User addFriend(@PathVariable Long id, @PathVariable Long friendId) {
+    public void addFriend(@PathVariable Long id, @PathVariable Long friendId) {
         userService.addFriend(id, friendId);
-        return userService.findById(id).orElseThrow(() ->
-                new UserNotFoundException(String.format("Пользователь с id = %d не найден", id))
-        );
     }
 
     @DeleteMapping("/{id}/friends/{friendId}")
-    public User removeFriend(@PathVariable Long id, @PathVariable Long friendId) {
+    public void removeFriend(@PathVariable Long id, @PathVariable Long friendId) {
         userService.removeFriend(id, friendId);
-        return userService.findById(id).orElseThrow(() ->
-                new UserNotFoundException(String.format("Пользователь с id = %d не найден", id))
-        );
+    }
+
+    @GetMapping("/{id}/friends")
+    public Collection<User> getFriends(@PathVariable Long id) {
+        return userService.getFriends(id);
+    }
+
+    @GetMapping("/{id}/friends/common/{otherId}")
+    public Collection<User> getCommonFriends(@PathVariable Long id, @PathVariable Long otherId) {
+        return userService.getCommonFriends(id, otherId);
     }
 }

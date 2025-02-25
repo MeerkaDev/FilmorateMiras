@@ -1,5 +1,7 @@
 package org.mirasruntime.filmoratemiras.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.mirasruntime.filmoratemiras.validation.DateAfterOrEqual;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -11,6 +13,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Film {
     private Long id;
 
@@ -30,5 +34,13 @@ public class Film {
 
     private Set<Genre> genres;
 
-    private Set<Long> likes = new HashSet<>();
+    public Film(Long id, String name, String description, LocalDate releaseDate, int duration, Mpa mpa) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.duration = duration;
+        this.mpa = mpa;
+        this.genres = new HashSet<>();
+    }
 }
