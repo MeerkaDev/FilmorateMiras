@@ -10,13 +10,11 @@ import org.mirasruntime.filmoratemiras.model.Film;
 import org.mirasruntime.filmoratemiras.dao.FilmStorage;
 import org.mirasruntime.filmoratemiras.dao.UserStorage;
 import org.mirasruntime.filmoratemiras.model.Genre;
-import org.mirasruntime.filmoratemiras.model.Mpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
