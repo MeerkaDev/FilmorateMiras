@@ -61,7 +61,7 @@ public class FilmDbStorage implements FilmStorage {
         };
 
         List<Genre> genres = jdbcTemplate.query(sqlGenres, rowMapperGenre, id);
-        film.setGenres(new HashSet<>(genres));
+        film.getGenres().addAll(genres);
 
         return Optional.of(film);
     }

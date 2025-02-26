@@ -10,10 +10,10 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Film {
     private Long id;
@@ -32,7 +32,7 @@ public class Film {
 
     private Mpa mpa;
 
-    private Set<Genre> genres;
+    private final Set<Genre> genres = new LinkedHashSet<>();
 
     public Film(Long id, String name, String description, LocalDate releaseDate, int duration, Mpa mpa) {
         this.id = id;
@@ -41,6 +41,5 @@ public class Film {
         this.releaseDate = releaseDate;
         this.duration = duration;
         this.mpa = mpa;
-        this.genres = new HashSet<>();
     }
 }

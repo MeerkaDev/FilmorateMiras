@@ -1,3 +1,11 @@
+drop table if exists likes;
+drop table if exists friends;
+drop table if exists films_genres;
+drop table if exists films;
+drop table if exists genres;
+drop table if exists mpa;
+drop table if exists users;
+
 create table if not exists mpa
 (
     id   bigserial primary key,
@@ -36,7 +44,7 @@ create table if not exists films_genres
     genre_id bigint,
     primary key (film_id, genre_id),
     foreign key (film_id) references films(id),
-    foreign key (genre_id) references genre(id)
+    foreign key (genre_id) references genres(id)
 );
 
 create table if not exists friends

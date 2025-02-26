@@ -7,11 +7,12 @@ VALUES ('G'),
 
 
 INSERT INTO genres (name)
-VALUES ('Action'),
-       ('Comedy'),
-       ('Drama'),
-       ('Horror'),
-       ('Science Fiction');
+VALUES ('Комедия'),
+       ('Драма'),
+       ('Мультфильм'),
+       ('Триллер'),
+       ('Документальный'),
+       ('Боевик');
 
 
 INSERT INTO users (name, login, email, birthday)
